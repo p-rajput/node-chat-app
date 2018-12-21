@@ -3,5 +3,14 @@
 <head> <meta charset="utf-8"></head>
 <body>
   <p>Welcome to chat app </p>
+  <script src="/socket.io/socket.io.js"></script>
+  <script> var server= io();
+  server.on('connect',()=>{
+    console.log('connected');
+  })
+  server.on('disconnect',()=>{
+    console.log('we are disconnected!');
+  })
+  </script>
 </body>
 </html>
