@@ -4,12 +4,16 @@
 <body>
   <p>Welcome to chat app </p>
   <script src="/socket.io/socket.io.js"></script>
-  <script> var server= io();
-  server.on('connect',()=>{
-    console.log('connected');
+  <script >
+  var socket= io();
+  socket.on('connect',()=>{
+   console.log('connected');
   })
-  server.on('disconnect',()=>{
-    console.log('we are disconnected!');
+  socket.on('disconnect',()=>{
+   console.log('we are disconnected!');
+  })
+  socket.on('newMessage',(message)=>{
+    console.log(message);
   })
   </script>
 </body>
