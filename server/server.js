@@ -14,11 +14,11 @@ io.on('connection',(socket)=>{
   console.log('new user connected');
   socket.emit('newMessage',generateMessage('Admin','welcome to chat app'));
   socket.broadcast.emit('newMessage',generateMessage('Admin','New user join'));
-  socket.on('createMessage',(message)=>{
+  socket.on('createMessage',(message,callback)=>{
     io.emit('newMessage',generateMessage(message.from,message.text));
+    callback()
   });
   socket.on('createLocationMessage',(coords)=>{
-    console.log(coords)
     io.emit('generateLocationMessage',generateLocationMessage('admin',coords.latitude,coords.longitude))
   });
   socket.on('disconnect',()=>{
