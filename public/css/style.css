@@ -1,4 +1,4 @@
-* {
+*{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -168,7 +168,10 @@ button:disabled {
   font-weight: 600;
   margin-right: 10px;
 }
-
+.message__body p {
+  font-weight: 600;
+  margin-right: 10px;
+}
 .message__title span {
   color: #999;
 }
