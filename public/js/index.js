@@ -26,3 +26,26 @@ jQuery('#message-form').on('submit', function (e) {
 
   });
 });
+var locationButton=jQuery("#send-location");
+locationButton.on('click',function(){
+  if(!navigator.geolocation){
+    return alert('Geolocation i not supported by your browser');
+  }
+  navigator.geolocation.getCurrentPosition(function(position){
+    socket.emit('createLocationMessage',{
+      latitude:position.coords.latitude,
+      longitude:position.coords.longitude
+    });
+  },function(e){
+    return alert('Unable to fetch location'+e);
+  })
+})
+socket.on('generateLocationMessage',function(message){
+  var li=jQuery('<li></li>');
+  li.text(`from${message.from}:`);
+  var a=jQuery('<a target="_blank">current location</a>');
+  a.attr('href',message.url);
+  li.append(a);
+  jQuery('#messages').append(li);
+
+});

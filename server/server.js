@@ -3,7 +3,7 @@ const express=require('express');
 const socketIo=require('socket.io');
 const http=require('http');
 
-let {generateMessage}=require('./utils/message.js');
+let {generateMessage,generateLocationMessage}=require('./utils/message.js');
 const publicPath=path.join(__dirname,'../public');
 let app=express();
 var server=http.createServer(app);
@@ -15,8 +15,11 @@ io.on('connection',(socket)=>{
   socket.emit('newMessage',generateMessage('Admin','welcome to chat app'));
   socket.broadcast.emit('newMessage',generateMessage('Admin','New user join'));
   socket.on('createMessage',(message)=>{
-    console.log('createMessage',message);
     io.emit('newMessage',generateMessage(message.from,message.text));
+  });
+  socket.on('createLocationMessage',(coords)=>{
+    console.log(coords)
+    io.emit('generateLocationMessage',generateLocationMessage('admin',coords.latitude,coords.longitude))
   });
   socket.on('disconnect',()=>{
     console.log('useris dissconnect');
